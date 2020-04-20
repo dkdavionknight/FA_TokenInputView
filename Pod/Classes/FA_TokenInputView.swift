@@ -6,7 +6,7 @@
 //
 //
 
-import Foundation
+import UIKit
 
 @objc public protocol FA_TokenInputViewDelegate: class {
   
@@ -282,7 +282,7 @@ open class FA_TokenInputView: UIView {
   }
   
   open func removeToken(token theToken: FA_Token) {
-    if let index = self.tokens.index(where: { (token) -> Bool in return token == theToken }) {
+    if let index = self.tokens.firstIndex(where: { (token) -> Bool in return token == theToken }) {
       self.removeTokenAtIndex(index)
     }
   }
@@ -746,7 +746,7 @@ extension FA_TokenInputView: FA_TokenViewDelegate {
       self.textField.text = theText
     }
     // Then remove the view from our data
-    if let index = self.tokenViews.index(of: tokenView) {
+    if let index = self.tokenViews.firstIndex(of: tokenView) {
       self.removeTokenAtIndex(index)
     }
   }

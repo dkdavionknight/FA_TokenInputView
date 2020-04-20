@@ -6,7 +6,7 @@
 //
 //
 
-import Foundation
+import UIKit
 
 protocol FA_BackspaceDetectingTextFieldDelegate: class, UITextFieldDelegate {
     func textFieldDidDeleteBackward(_ textField: UITextField)

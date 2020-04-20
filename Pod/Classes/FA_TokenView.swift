@@ -6,7 +6,7 @@
 //
 //
 
-import Foundation
+import UIKit
 
 protocol FA_TokenViewDelegate: class {
   func tokenViewDidRequestDelete(_ tokenView: FA_TokenView, replaceWithText theText: String?)
@@ -80,7 +80,7 @@ class FA_TokenView: UIView {
     // Configure for the token, unselected shows "[displayText]," and selected is "[displayText]"
     let labelString = "\(self.displayText),"
     let attrString = NSMutableAttributedString(string: labelString, attributes: [
-      .font : self.label.font,
+      .font : self.label.font!,
       .foregroundColor : UIColor.lightGray
       ])
     let tintRange = (labelString as NSString).range(of: self.displayText)
@@ -158,13 +158,15 @@ class FA_TokenView: UIView {
     self.displayText = self.token.displayText
     let labelString = "\(self.displayText),"
     let attrString = NSMutableAttributedString(string: labelString, attributes: [
-      .font : self.label.font,
+      .font : self.label.font!,
       .foregroundColor : visible ? UIColor.lightGray : UIColor.clear
       ])
     let tintRange = (labelString as NSString).range(of: self.displayText)
     
     // Make the name part the system tint color
-    attrString.setAttributes([.foregroundColor : self.textColor], range: tintRange)
+    if let textColor = textColor {
+        attrString.setAttributes([.foregroundColor : textColor], range: tintRange)
+    }
     self.label.attributedText = attrString
   }
   
@@ -185,9 +187,13 @@ class FA_TokenView: UIView {
     let attrString: AnyObject = self.label.attributedText!.mutableCopy() as AnyObject
     let tintRange = NSMakeRange(0, self.displayText.count)
     // Make the overall text color gray
-    attrString.setAttributes([.foregroundColor: self.separatorColor], range:NSMakeRange(attrString.length - 1, 1))
+    if let separatorColor = separatorColor {
+        attrString.setAttributes([.foregroundColor: separatorColor], range:NSMakeRange(attrString.length - 1, 1))
+    }
     // Make the name part the system tint color
-    attrString.setAttributes([.foregroundColor : self.textColor], range:tintRange)
+    if let textColor = textColor {
+        attrString.setAttributes([.foregroundColor : textColor], range:tintRange)
+    }
     if let attrString = attrString as? NSAttributedString {
       self.label.attributedText = attrString
     }

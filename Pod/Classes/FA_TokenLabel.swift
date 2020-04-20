@@ -6,7 +6,7 @@
 //
 //
 
-import Foundation
+import UIKit
 
 class FA_TokenLabel: UILabel {
   
